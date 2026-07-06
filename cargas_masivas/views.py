@@ -34,8 +34,9 @@ class SubirLoteView(LoginRequiredMixin, CreateView):
 
 @login_required
 def descargar_plantilla(request):
-    # Asegúrate de crear este archivo: /media/plantillas/plantilla_consultas.xlsx
-    plantilla_path = os.path.join(settings.MEDIA_ROOT, 'plantillas', 'plantilla_consultas.xlsx')
+    # La plantilla vive en static/ (viaja por git y se despliega en cada cliente).
+    # Se lee desde el directorio fuente (BASE_DIR/static), independiente de S3/collectstatic.
+    plantilla_path = os.path.join(settings.BASE_DIR, 'static', 'plantillas', 'plantilla_consultas.xlsx')
 
     try:
         with open(plantilla_path, 'rb') as f:
