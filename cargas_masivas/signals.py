@@ -14,11 +14,12 @@ from django.utils.html import strip_tags
 def notificar_cambio_lote(sender, instance, created, **kwargs):
     
     domain = settings.MI_DOMINIO
+    logo_url = f'{settings.STATIC_URL}images/logo_vadom.png'
 
     if created:
         # ----- INICIO: Notificación al ADMIN (Esto ya lo teníamos) -----
         subject_admin = f'Nueva Solicitud de Carga Masiva - {instance.empresa.nombre}'
-        context_admin = {'instance': instance, 'domain': domain}
+        context_admin = {'instance': instance, 'domain': domain, 'logo_url': logo_url}
         
         html_message_admin = render_to_string('cargas_masivas/emails/admin_notificacion.html', context_admin)
         plain_message_admin = strip_tags(html_message_admin)
@@ -40,7 +41,7 @@ def notificar_cambio_lote(sender, instance, created, **kwargs):
 
         # ----- INICIO: NUEVA Notificación al USUARIO (Confirmación) -----
         subject_user = f'Hemos recibido tu solicitud de Carga Masiva (ID: {instance.id})'
-        context_user = {'instance': instance, 'domain': domain}
+        context_user = {'instance': instance, 'domain': domain, 'logo_url': logo_url}
 
         html_message_user = render_to_string('cargas_masivas/emails/usuario_confirmacion.html', context_user)
         plain_message_user = strip_tags(html_message_user)
@@ -64,7 +65,7 @@ def notificar_cambio_lote(sender, instance, created, **kwargs):
         # Notificar al USUARIO que su lote está listo (Esto ya lo teníamos)
         subject = f'Tu Reporte de Consulta Masiva (ID: {instance.id}) está Listo'
         
-        context = {'instance': instance, 'domain': domain}
+        context = {'instance': instance, 'domain': domain, 'logo_url': logo_url}
         
         html_message = render_to_string('cargas_masivas/emails/usuario_notificacion.html', context)
         plain_message = strip_tags(html_message)

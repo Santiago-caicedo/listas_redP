@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -48,7 +49,7 @@
         <form method="post">
             {% csrf_token %}
 
-            <img class="logo" src="https://vadomdata.com/wp-content/uploads/2025/08/Vadom-logo-blanco-e1756258715825.png" alt="Logo Empresa">
+            <img class="logo" src="{% static 'images/logo_vadom.png' %}" alt="Logo Empresa">
 
             <h1 class="h3 mb-3 fw-normal">Iniciar Sesión</h1>
             <p class="mb-4 text-muted">Acceso a la Plataforma LAFT</p>
